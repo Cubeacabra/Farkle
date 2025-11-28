@@ -23,3 +23,10 @@ int Player::getScore() const {
 int Player::getID() const {
 	return playerID;
 }
+
+vector<Die>& Player::getDie() {
+	return dice;
+}
+void Player::setBadDie(int index) {
+	dice.at(index).setCanRoll(false);
+}

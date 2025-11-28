@@ -12,6 +12,8 @@ class Player {
 		Player(); //Default With 6 Normal Die
 		Player(vector<Die>& newDie, int newID); //For Using Weighted Die
 		void updateScore(const int newPoints);
+		vector<Die>& getDie();
 		int getScore() const;
 		int getID() const;
+		void setBadDie(int index); //Makes the rollable bool false
 };
