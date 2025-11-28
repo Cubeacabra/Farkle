@@ -3,11 +3,13 @@
 using namespace std;
 
 Die::Die() : SIDES(6), last_roll(0) {
+	rollable = true;
 	for (unsigned int i = 0; i < SIDES; i++)
 		weight.push_back(1.0/SIDES);
 }
 
 Die::Die(vector<double> new_weights, const int new_sides) : SIDES(new_sides), last_roll(0) {
+	rollable = true;
 	assert(new_sides >= 4);
 	assert(new_weights.size() == SIDES);
 	double sum = 0;
@@ -20,11 +22,27 @@ Die::Die(vector<double> new_weights, const int new_sides) : SIDES(new_sides), la
 }
 
 int Die::get_roll() {
+	cerr << "last roll is " << last_roll << endl;
 	assert(last_roll >= 1 && last_roll <= SIDES);
 	return last_roll;
 }
 
 void Die::roll() {
 	//TODO: Implement weight system
-	last_roll = rand() % SIDES + 1;
+	double val =(rand() / double(RAND_MAX)); //Generates a double btwn 0 and 1 for more accuracy
+	for (int i = 0; i < weight.size(); i++) {
+		val -= weight.at(i);
+		//cerr << "weight is: " << weight.at(i) << " and i is " << i << " and roll is " << last_roll << endl;
+		if (val <= 0) {
+			last_roll = i + 1;
+			return;
+		}
+	}
+	last_roll = SIDES;
+}
+bool Die::canRoll() const {
+	return rollable;	
+}	
+void Die::setCanRoll(bool b) {
+	rollable = b;
 }
