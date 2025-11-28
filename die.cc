@@ -20,11 +20,21 @@ Die::Die(vector<double> new_weights, const int new_sides) : SIDES(new_sides), la
 }
 
 int Die::get_roll() {
+	cerr << "last roll is " << last_roll << endl;
 	assert(last_roll >= 1 && last_roll <= SIDES);
 	return last_roll;
 }
 
 void Die::roll() {
 	//TODO: Implement weight system
-	last_roll = rand() % SIDES + 1;
+	double val =(rand() / double(RAND_MAX)); //Generates a double btwn 0 and 1 for more accuracy
+	for (int i = 0; i < weight.size(); i++) {
+		val -= weight.at(i);
+		//cerr << "weight is: " << weight.at(i) << " and i is " << i << " and roll is " << last_roll << endl;
+		if (val <= 0) {
+			last_roll = i + 1;
+			return;
+		}
+	}
+	last_roll = SIDES;
 }

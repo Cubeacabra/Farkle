@@ -2,6 +2,7 @@
 #include <vector>
 #include <cassert>
 #include <cstdlib>
+#include <iostream>
 using std::vector;
 using std::cout;
 using std::endl;
