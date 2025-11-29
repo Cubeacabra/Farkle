@@ -1,5 +1,5 @@
-a.out: main.o die.o player.o table.o
-	g++ main.o die.o player.o table.o
+a.out: main.o die.o player.o table.o presetDie.o
+	g++ main.o die.o player.o table.o presetDie.o
 
 main.o: main.cc die.h
 	g++ -c main.cc
@@ -12,6 +12,9 @@ player.o: player.cc player.h die.h
 
 table.o: table.cc table.h player.h die.h
 	g++ -c table.cc
+
+presetDie.o: presetDie.cc die.h
+	g++ -c presetDie.cc
 
 clean:
 	rm -f *.o a.out core

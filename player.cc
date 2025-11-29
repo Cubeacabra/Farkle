@@ -8,9 +8,20 @@ Player::Player() {
 	}
 	score = 0;
 }
+Player::Player(int newID) {
+	playerID = newID;
+	for (int i = 0; i < 6; i++) {
+		Die d;
+		dice.push_back(d);
+	}
+	score = 0;
+}
 
 Player::Player(vector<Die>& newDie, int newId) : dice(newDie), playerID(newId) {
 	score = 0;
+}
+void Player::initDice(const vector<Die>& newDie){
+	dice = newDie;
 }
 
 void Player::updateScore(const int newPoints) {

@@ -10,7 +10,9 @@ class Player {
 		vector<Die> dice;
 	public:
 		Player(); //Default With 6 Normal Die
+		Player(int newID); //Initialzing with just ID
 		Player(vector<Die>& newDie, int newID); //For Using Weighted Die
+		void initDice(const vector<Die>& newDie); //sets the Player's dice at the start
 		void updateScore(const int newPoints);
 		vector<Die>& getDie();
 		int getScore() const;

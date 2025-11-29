@@ -1,5 +1,6 @@
 #include "die.h"
 #include <cassert>
+#include <iomanip>
 using namespace std;
 
 Die::Die() : SIDES(6), last_roll(0) {
@@ -8,9 +9,11 @@ Die::Die() : SIDES(6), last_roll(0) {
 		weight.push_back(1.0/SIDES);
 }
 
-Die::Die(vector<double> new_weights, const int new_sides) : SIDES(new_sides), last_roll(0) {
+Die::Die(vector<double> new_weights, const int new_sides, string newDescription) : SIDES(new_sides), last_roll(0) {
+	description = newDescription;
 	rollable = true;
 	assert(new_sides >= 4);
+	//cerr << description << endl;
 	assert(new_weights.size() == SIDES);
 	double sum = 0;
 	for (unsigned int i = 0; i < SIDES; i++) {
@@ -22,7 +25,7 @@ Die::Die(vector<double> new_weights, const int new_sides) : SIDES(new_sides), la
 }
 
 int Die::get_roll() {
-	cerr << "last roll is " << last_roll << endl;
+//`	cerr << "last roll is " << last_roll << endl;
 	assert(last_roll >= 1 && last_roll <= SIDES);
 	return last_roll;
 }
@@ -45,4 +48,11 @@ bool Die::canRoll() const {
 }	
 void Die::setCanRoll(bool b) {
 	rollable = b;
+}
+void Die::printSelf() {
+	cout << description << ": ";
+	for (double d : weight) {
+		cout << fixed << setprecision(2) << d << "% ";
+	}
+	cout << endl;
 }
