@@ -21,4 +21,5 @@ class Die {
 	bool canRoll() const; //Checks if you can roll it, since you cant if you stored it's value for that turn
 	void setCanRoll(bool b); //Make it so you can/cant roll die
 	void printSelf();
+	int getSides();
 };
