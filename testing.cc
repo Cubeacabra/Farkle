@@ -3,6 +3,7 @@
 #include "player.h"
 #include "table.h"
 #include "presetDie.h"
+#include "/public/colors.h"
 
 using namespace std;
 
@@ -61,6 +62,9 @@ int main() {
 		//TODO: game logic
 		for (Player p : players) {
 			bool moveOn = false;
+			setcolor(220, 0, 255);
+			cout << "Player " << p.getID() << "'s Turn!" << endl;
+			setcolor(255,255,255);
 			while (!moveOn) {
 			//	cerr<< "in loop good" << endl;
 				table.rollAllDie(p);

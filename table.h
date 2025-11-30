@@ -20,4 +20,6 @@ class Table {
 		void keepDice(Player& p);
 		void cleanTable();
 		int getScore();
+		void computeScore(vector<int> vec);
+		bool isValidCombo(vector<int> vec);
 };
