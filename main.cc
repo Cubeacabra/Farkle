@@ -35,8 +35,21 @@ int main() {
 		} else if (first == "2") {
 			special.printAll();
 			//TODO: Prompt user for more information, giving them the choice of die found in presetDie.cc
+		//	while (true) {
+			cout << "What dice would you like to start with: ";
+			int choice = 0;
+			cin >> choice;
+			//Die win  = special.getDie(choice);
+			std::vector<Die> dice;
+			dice.push_back(special.getDie(choice));
+			p.initDice(dice);
+            			
+			
+			
+		//	}
 		} else if (first == "3") {
 			//TODO: Prompt user for input, letting them input weights btwn 0 and 1. I would recomend prompting them first
+			//cout << "You choice 3, 
 			//      for how many values they will input (so how many sides are on the die) and then having them input their
 			//      prefered dice weights. Read these into a vector of doubles, then make sure all the weights in the vector add
 			//      up to between 0.99 and 1.01. Lastly, call initDice and pass in this vector for the player
