@@ -4,6 +4,7 @@
 #include "player.h"
 #include "table.h"
 #include "presetDie.h"
+#include "/public/colors.h"
 
 using namespace std;
 
@@ -15,6 +16,8 @@ int main() {
 	Player p2(1);
 	vector<Player> players = {p1, p2};
 	presetDie special;
+	Table table;
+	int endScore = 0;
 
 	cout << "Welcome to Farkle!" << endl;
 
@@ -35,7 +38,7 @@ int main() {
 		} else if (first == "2") {
 			special.printAll();
 			//TODO: Prompt user for more information, giving them the choice of die found in presetDie.cc
-		//	while (true) {
+			//	while (true) {
 			cout << "What dice would you like to start with: ";
 			int choice = 0;
 			cin >> choice;
@@ -43,10 +46,10 @@ int main() {
 			std::vector<Die> dice;
 			dice.push_back(special.getDie(choice));
 			p.initDice(dice);
-            			
-			
-			
-		//	}
+
+
+
+			//	}
 		} else if (first == "3") {
 			//TODO: Prompt user for input, letting them input weights btwn 0 and 1. I would recomend prompting them first
 			//cout << "You choice 3, 
@@ -58,9 +61,71 @@ int main() {
 		}
 	}
 
+
+
+	cout << "How many points do you want to play to? (Input a number)" << endl;
+	cin >> endScore;
+
 	while (true) {
-		//TODO: game logic
-		break;
+		//TODO: game logicfor (Player& p : players) {
+		for (Player& p : players) {
+			bool moveOn = false;
+			setcolor(220, 0, 255);
+			cout << "Player " << p.getID() << "'s Turn!" << endl;
+			setcolor(255,255,255);
+			while (!moveOn) {
+				cout << "Player " << p.getID() << "'s points on the board: " << table.getScore() << endl;
+				//  cerr<< "in loop good" << endl;
+				table.rollAllDie(p);
+				//  cerr << "rolled die good" << endl;
+				if (table.isFarkle()) {
+					cout << "BUST!! YOU FARKLED" << endl;
+					moveOn = true;
+					table.cleanTable();
+					p.resetDie();
+					continue;
+				}
+				//  cerr << "farkle check good" << endl;
+				table.printResults();
+				//  cerr << "print good" << endl;
+				table.keepDice(p);
+
+
+				cout << "What will you do?" << endl;
+				cout << "1) Keep Playing" << endl;
+				cout << "2) End Your Turn" << endl;
+
+				string option;
+				cin >> option;
+				while (option != "1" && option != "2") {
+					cout << "Bad Input!" << endl;
+					cout << "What will you do?" << endl;
+					cout << "1) Keep Playing" << endl;
+					cout << "2) End Your Turn" << endl;
+					cin >> option;
+				}
+				if (option == "1") {
+					continue;
+				} else {
+					moveOn = true;
+					cout << "score before updating " << p.getScore() << " and the amount we want to add is " << table.getScore() << endl;
+					p.updateScore(table.getScore());
+					cout << "Player " << p.getID() << "'s score is now " << p.getScore() << endl;
+					if (p.getScore() >= endScore) {
+						setcolor(255,165,0);
+						cout << "Player  " << p.getID() << " wins!!" << endl;
+						setcolor(255,255,255);
+						exit(EXIT_SUCCESS);
+					}
+					p.resetDie();
+					table.cleanTable();
+				}
+
+			}
+
+		}
 	}
 
+
 }
+
