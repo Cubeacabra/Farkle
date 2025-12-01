@@ -13,15 +13,22 @@ Player::Player(int newID) {
 	for (int i = 0; i < 6; i++) {
 		Die d;
 		dice.push_back(d);
+		dice.at(i).setIndex(i);
 	}
 	score = 0;
 }
 
 Player::Player(vector<Die>& newDie, int newId) : dice(newDie), playerID(newId) {
 	score = 0;
+	for (int i = 0; i < dice.size(); i++) {
+		dice.at(i).setIndex(i);
+	}
 }
 void Player::initDice(const vector<Die>& newDie){
 	dice = newDie;
+	for (int i = 0; i < dice.size(); i++) {
+		dice.at(i).setIndex(i);
+	}
 }
 
 void Player::updateScore(const int newPoints) {

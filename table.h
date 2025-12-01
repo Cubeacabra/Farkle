@@ -6,7 +6,7 @@
 class Table {
 	private:
 		int currScore;
-		vector<int> diceValues;
+		vector<Die> diceValues;
 		vector<int> frequency;
 		int maxSides;
 		bool Farkled;
