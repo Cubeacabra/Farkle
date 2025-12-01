@@ -59,3 +59,9 @@ void Die::printSelf() {
 int Die::getSides() {
 	return SIDES;
 }
+void Die::setIndex(int newIndex) {
+	dieIndex = newIndex;
+}
+int Die::getDieIndex() {
+	return dieIndex;
+}	
