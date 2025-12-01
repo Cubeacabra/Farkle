@@ -22,7 +22,9 @@ void Table::setFreq() {
 	//cerr << "resize good" << endl;
 	for (int i = 0; i < diceValues.size(); i++) {
 		//	cerr << "in loop for = " << i << endl;
+				//cerr << "gonna check frequency(diceValues(i) - 1)" << endl;
 		frequency.at(diceValues.at(i)-1)++;
+				//cerr << "ckech good frequency(diceValues(i) - 1)" << endl;
 		//	cerr << "changed freq for i= " << i << endl;
 	}
 	//	for (int i = 0; i < frequency.size(); i++) {
@@ -36,6 +38,11 @@ void Table::rollAllDie(Player& p){
 						//cerr << "clear good" << endl;
 	for (Die d : p.getDie()) {
 		//	cerr << "enter loop for " << endl;
+	//	if (d.canRoll()) {
+	//		cout << "Can roll this die!" << endl;
+	//	} else {
+	//		cout << "\t CANNTTTT roll this die" << endl;
+	//	}
 		if(d.canRoll()) {
 			d.roll();
 			//	cerr << "roll good  for " << endl;
@@ -95,9 +102,9 @@ void Table::keepDice(Player& p){
 		}
 
 		for (int i = 0; i < chosenDies.size(); i++) {
-			setcolor(0,255,0);
-			cerr << "i is " << i << " and chosendie is " << chosenDies.at(i) << " and frequency is " << frequency.at(i) << endl;
-			setcolor(255,255,255);
+			//setcolor(0,255,0);
+			//cerr << "i is " << i << " and chosendie is " << chosenDies.at(i) << " and frequency is " << frequency.at(i) << endl;
+			//setcolor(255,255,255);
 			if (chosenDies.at(i) > frequency.at(i)) {
 				cout << "Bad Dice Input! Try again" << endl;
 				cin >> ws;
@@ -124,10 +131,14 @@ void Table::keepDice(Player& p){
 			badInput = true;
 			fill(chosenDies.begin(), chosenDies.end(), 0);
 		} else {
-			for (int i = 0; i < chosenDies.size(); i++) {
+			for (int i = 0; i < diceValues.size(); i++) {
+				//cerr << "gonna check chosenDies(diceValues(i))" << endl;
+				//for (int i : chosenDies) {cout << i << " ";} cout << endl;
+				//for (int i : diceValues) {cout << i << " ";} cout << endl;
 				if (chosenDies.at(diceValues.at(i) - 1) > 0) {
-					p.setBadDie(diceValues.at(i) - 1);
+					p.setBadDie(i);
 				}
+				//cerr << " checked chosenDies(diceValues(i)) successfully" << endl;
 			}
 			computeScore(chosenDies);
 		}
@@ -187,7 +198,11 @@ bool Table::isValidCombo(vector<int> vec) {
 
 
 
-void Table::cleanTable(){}
+void Table::cleanTable(){
+	currScore = 0;
+	Farkled = false;
+	maxSides = 0;
+}
 int Table::getScore() {
 	return currScore;
 }

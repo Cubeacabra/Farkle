@@ -17,6 +17,7 @@ int main() {
 	vector<Player> players = {p1, p2};
 	presetDie special;
 	Table table;
+	int endScore = 0;
 
 	cout << "Welcome to Farkle!" << endl;
 
@@ -58,20 +59,26 @@ int main() {
 		}
 	}
 
+	cout << "How many points do you want to play to? (Input a number)" << endl;
+	cin >> endScore;
+
 	while (true) {
 		//TODO: game logic
-		for (Player p : players) {
+		for (Player& p : players) {
 			bool moveOn = false;
 			setcolor(220, 0, 255);
 			cout << "Player " << p.getID() << "'s Turn!" << endl;
 			setcolor(255,255,255);
 			while (!moveOn) {
+				cout << "Player " << p.getID() << "'s points on the board: " << table.getScore() << endl;
 			//	cerr<< "in loop good" << endl;
 				table.rollAllDie(p);
 			//	cerr << "rolled die good" << endl;
 				if (table.isFarkle()) {
 					cout << "BUST!! YOU FARKLED" << endl;
 					moveOn = true;
+					table.cleanTable();
+					p.resetDie();
 					continue;
 				}
 			//	cerr << "farkle check good" << endl;
@@ -97,13 +104,23 @@ int main() {
 					continue;
 				} else {
 					moveOn = true;
+					cout << "score before updating " << p.getScore() << " and the amount we want to add is " << table.getScore() << endl;
 					p.updateScore(table.getScore());
+					cout << "Player " << p.getID() << "'s score is now " << p.getScore() << endl;
+					if (p.getScore() >= endScore) {
+						setcolor(255,165,0);
+						cout << "Player  " << p.getID() << " wins!!" << endl;
+						setcolor(255,255,255);
+						exit(EXIT_SUCCESS);
+					}
+					p.resetDie();
+					table.cleanTable();
 				}
 
 			}
+
 		}
 
-		break;
 	}
 
 }
