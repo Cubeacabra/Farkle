@@ -56,3 +56,6 @@ void Die::printSelf() {
 	}
 	cout << endl;
 }
+int Die::getSides() {
+	return SIDES;
+}

@@ -18,4 +18,5 @@ class Player {
 		int getScore() const;
 		int getID() const;
 		void setBadDie(int index); //Makes the rollable bool false
+		void resetDie();
 };

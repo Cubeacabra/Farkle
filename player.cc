@@ -41,3 +41,8 @@ vector<Die>& Player::getDie() {
 void Player::setBadDie(int index) {
 	dice.at(index).setCanRoll(false);
 }
+void Player::resetDie() {
+	for (Die& d : dice) {
+		d.setCanRoll(true);
+	}
+}

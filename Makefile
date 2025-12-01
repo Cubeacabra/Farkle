@@ -18,3 +18,9 @@ presetDie.o: presetDie.cc die.h
 
 clean:
 	rm -f *.o a.out core
+
+t.out: testing.o die.o player.o table.o presetDie.o
+	g++ testing.o die.o player.o table.o presetDie.o
+
+testing.o: testing.cc table.h player.h die.h presetDie.h
+	g++ -c testing.cc

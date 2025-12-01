@@ -1,4 +1,3 @@
-//Write your last name and your partner's name here
 #include <iostream>
 #include "die.h"
 #include "player.h"
@@ -11,6 +10,7 @@ using namespace std;
 int main() {
 	srand(time(0));
 
+	cout << "DOG COLLAR" << endl;
 	string first, second, third, fourth, fifth;
 	Player p1(0);
 	Player p2(1);
@@ -23,7 +23,7 @@ int main() {
 
 	for (Player p : players) {
 		cout << "Player " << p.getID() << " Choose an option (1,2,3)" << endl;
-		cout << "1) Start the game with regular die" << endl; 
+		cout << "1) Start the game with regular die" << endl;
 		cout << "2) Play with preset weighted die" << endl;
 		cout << "3) Play with custom weighted die" << endl;
 
@@ -38,7 +38,7 @@ int main() {
 		} else if (first == "2") {
 			special.printAll();
 			//TODO: Prompt user for more information, giving them the choice of die found in presetDie.cc
-			//	while (true) {
+			//  while (true) {
 			cout << "What dice would you like to start with: ";
 			int choice = 0;
 			cin >> choice;
@@ -47,12 +47,10 @@ int main() {
 			dice.push_back(special.getDie(choice));
 			p.initDice(dice);
 
-
-
-			//	}
+			//  }
 		} else if (first == "3") {
 			//TODO: Prompt user for input, letting them input weights btwn 0 and 1. I would recomend prompting them first
-			//cout << "You choice 3, 
+			//cout << "You choice 3,
 			//      for how many values they will input (so how many sides are on the die) and then having them input their
 			//      prefered dice weights. Read these into a vector of doubles, then make sure all the weights in the vector add
 			//      up to between 0.99 and 1.01. Lastly, call initDice and pass in this vector for the player
@@ -61,13 +59,11 @@ int main() {
 		}
 	}
 
-
-
 	cout << "How many points do you want to play to? (Input a number)" << endl;
 	cin >> endScore;
 
 	while (true) {
-		//TODO: game logicfor (Player& p : players) {
+		//TODO: game logic
 		for (Player& p : players) {
 			bool moveOn = false;
 			setcolor(220, 0, 255);
@@ -75,9 +71,9 @@ int main() {
 			setcolor(255,255,255);
 			while (!moveOn) {
 				cout << "Player " << p.getID() << "'s points on the board: " << table.getScore() << endl;
-				//  cerr<< "in loop good" << endl;
+			//	cerr<< "in loop good" << endl;
 				table.rollAllDie(p);
-				//  cerr << "rolled die good" << endl;
+			//	cerr << "rolled die good" << endl;
 				if (table.isFarkle()) {
 					cout << "BUST!! YOU FARKLED" << endl;
 					moveOn = true;
@@ -85,11 +81,11 @@ int main() {
 					p.resetDie();
 					continue;
 				}
-				//  cerr << "farkle check good" << endl;
+			//	cerr << "farkle check good" << endl;
 				table.printResults();
-				//  cerr << "print good" << endl;
+			//	cerr << "print good" << endl;
 				table.keepDice(p);
-
+			
 
 				cout << "What will you do?" << endl;
 				cout << "1) Keep Playing" << endl;
@@ -124,8 +120,8 @@ int main() {
 			}
 
 		}
-	}
 
+	}
 
 }
 
