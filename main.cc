@@ -106,12 +106,14 @@ int main() {
 				if (a < 0) continue;
 				if (a > 1) continue;
 				if (newWeights.size() == newSides) break;
+				//cout << "size is " << newWeights.size() << " and sides is " << newSides << endl;
 				nextSum = sum + a;
 				if (nextSum < 1) {
 					newWeights.push_back(a);
 					sum = nextSum;
 				} else {
 					newWeights.push_back(1 - sum);
+					sum = 1;
 					break;
 				}
 				
@@ -120,7 +122,7 @@ int main() {
 				newWeights.push_back(0.0);	
 			}
 			if (sum < 1) {
-				newWeights.at(newSides - 1) = 1 - sum - newWeights.at(newSides - 1);
+				newWeights.at(newSides - 1) = 1 - sum + newWeights.at(newSides - 1);
 			}
 
 			vector<Die> dice(6, Die(newWeights, newSides, "Custom Die"));
@@ -174,6 +176,7 @@ int main() {
 
 		//TODO: game logicfor (Player& p : players) 
 		for (Player& p : players) {
+			if (wonRound) break;
 			bool moveOn = false;
 			setcolor(220, 0, 255);
 			cout << "Player " << p.getID() << "'s Turn!" << endl;
