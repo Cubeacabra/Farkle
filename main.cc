@@ -1,4 +1,5 @@
 //Write your last name and your partner's name here
+//Built by Ethan McFadden and Fabian Maldonado
 #include <iostream>
 #include "die.h"
 #include "player.h"
