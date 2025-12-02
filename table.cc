@@ -26,29 +26,42 @@ void Table::setFreq() {
 
 void Table::rollAllDie(Player& p){
 	diceValues.clear(); //Clears the diceValues vector so the player cann keep going with less dice
-	for (Die d : p.getDie()) {
-		//	cerr << "enter loop for " << endl;
-		//	if (d.canRoll()) {
-		//		cout << "Can roll this die!" << endl;
-		//	} else {
-		//		cout << "\t CANNTTTT roll this die" << endl;
-		//	}
-		if(d.canRoll()) {
-			d.roll();
-			//	cerr << "roll good  for " << endl;
-			//diceValues.push_back(d.get_roll());
-			diceValues.push_back(d);
-			if (d.getSides() > maxSides) {
-				maxSides = d.getSides();
+	int t = 0;
+	bool seenGoodDie = false;
+	while (!seenGoodDie) {
+		for (Die d : p.getDie()) {
+			//cerr << "enter loop for " << endl;
+		/*	setcolor(255,255,0);	
+			if (d.canRoll()) {
+				cout << t << " Can roll this die!" << endl;
+			} else {
+				cout << t << "\t  CANNTTTT roll this die" << endl;
+			}
+			setcolor(255,255,255);
+			t++;*/
+			if(d.canRoll()) {
+				seenGoodDie = true;
+				d.roll();
+				//	cerr << "roll good  for " << endl;
+				//diceValues.push_back(d.get_roll());
+				diceValues.push_back(d);
+				if (d.getSides() > maxSides) {
+					maxSides = d.getSides();
+				}
+			}
+		}
+		if (!seenGoodDie) {
+			for (Die& d: p.getDie()) {
+				d.setCanRoll(true);
 			}
 		}
 	}
-//	setcolor(255,0,0);
-//	for (Die d : diceValues) {
-//		cerr << d.get_roll() << " " << d.getDieIndex() << endl;;
-//	}
+	//	setcolor(255,0,0);
+	//	for (Die d : diceValues) {
+	//		cerr << d.get_roll() << " " << d.getDieIndex() << endl;;
+	//	}
 	//cerr << endl;
-//	setcolor(255,255,255);
+	//	setcolor(255,255,255);
 	//	cerr << "exit loop good " << endl;
 	this->setFreq();
 	//	cerr << "set freq good" << endl;
@@ -148,9 +161,9 @@ void Table::keepDice(Player& p){
 				//if (chosenDies.at(diceValues.at(i) - 1) > 0) {
 				if (chosenDies.at(diceValues.at(i).get_roll() - 1) > 0) {
 					p.setBadDie(diceValues.at(i).getDieIndex());
-				//	setcolor(255,255,0);
-				//	cerr << "Setting bad die for index" << i << endl;
-				//	setcolor(255,255,255);
+					/*setcolor(255,255,0);
+					cerr << "Setting bad die for index" << i << endl;
+					setcolor(255,255,255);*/
 				}
 
 
