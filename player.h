@@ -7,6 +7,7 @@ class Player {
 	private:
 		int playerID;
 		int score;
+		int money;
 		vector<Die> dice;
 	public:
 		Player(); //Default With 6 Normal Die
@@ -19,4 +20,8 @@ class Player {
 		int getID() const;
 		void setBadDie(int index); //Makes the rollable bool false
 		void resetDie();
+		int getMoney();
+		void winMoney(int newMoney);
+		void loseMoney(int lostMoney);
+		void resetScore();
 };
