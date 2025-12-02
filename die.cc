@@ -5,6 +5,7 @@ using namespace std;
 
 Die::Die() : SIDES(6), last_roll(0) {
 	rollable = true;
+	description = "Default Die";
 	for (unsigned int i = 0; i < SIDES; i++)
 		weight.push_back(1.0/SIDES);
 }

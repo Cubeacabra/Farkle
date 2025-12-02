@@ -31,6 +31,7 @@ void Player::initDice(const vector<Die>& newDie){
 	dice = newDie;
 	for (int i = 0; i < dice.size(); i++) {
 		dice.at(i).setIndex(i);
+		dice.at(i).printSelf();
 	}
 }
 
