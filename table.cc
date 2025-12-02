@@ -31,7 +31,7 @@ void Table::rollAllDie(Player& p){
 	while (!seenGoodDie) {
 		for (Die d : p.getDie()) {
 			//cerr << "enter loop for " << endl;
-		/*	setcolor(255,255,0);	
+			/*setcolor(255,255,0);	
 			if (d.canRoll()) {
 				cout << t << " Can roll this die!" << endl;
 			} else {

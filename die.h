@@ -13,7 +13,7 @@ class Die {
 	unsigned int last_roll;
 	bool rollable;
 	std::string description;
-	int dieIndex = 0;
+	int dieIndex;
 	public:
 	Die(); //Create a fair die
 	Die(vector<double> new_weights, int new_sides, std::string newDescription); //Create a cheater die

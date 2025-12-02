@@ -4,6 +4,7 @@
 using namespace std;
 
 Die::Die() : SIDES(6), last_roll(0) {
+	dieIndex = 0;
 	rollable = true;
 	description = "Default Die";
 	for (unsigned int i = 0; i < SIDES; i++)
@@ -11,6 +12,7 @@ Die::Die() : SIDES(6), last_roll(0) {
 }
 
 Die::Die(vector<double> new_weights, const int new_sides, string newDescription) : SIDES(new_sides), last_roll(0) {
+	dieIndex = 0;
 	description = newDescription;
 	rollable = true;
 	assert(new_sides >= 4);
