@@ -4,6 +4,7 @@
 #include "player.h"
 #include "table.h"
 #include "presetDie.h"
+#include <string>
 #include "/public/colors.h"
 
 using namespace std;
@@ -46,16 +47,33 @@ int main() {
 			std::vector<Die> dice;
 			dice.push_back(special.getDie(choice));
 			p.initDice(dice);
-
+            
 
 
 			//	}
 		} else if (first == "3") {
+		    cout << "You chose option 3, how many sides on a die will you like to input? ";
+             int new_sides = 0;
+			 cin >> new_sides;
+			 cout << "You're new weights have to be added up to? push q to stop";
+			 vector<double> new_weights;
+			 double a = 0.00;
+			 while (true) {
+
+				cin >> a; 
+				new_weights.push_back(a);
+			 }
+				
+			 vector<Die> dice;
+
+		    //p.initDice(die(new_weights,new_sides));
+		    	
 			//TODO: Prompt user for input, letting them input weights btwn 0 and 1. I would recomend prompting them first
 			//cout << "You choice 3, 
 			//      for how many values they will input (so how many sides are on the die) and then having them input their
 			//      prefered dice weights. Read these into a vector of doubles, then make sure all the weights in the vector add
 			//      up to between 0.99 and 1.01. Lastly, call initDice and pass in this vector for the player
+			
 		} else {
 			cout << "Bad Input!!" << endl;
 		}
