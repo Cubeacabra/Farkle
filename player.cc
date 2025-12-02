@@ -6,6 +6,7 @@ Player::Player() {
 		Die d;
 		dice.push_back(d);
 	}
+	money = 1000;
 	score = 0;
 }
 Player::Player(int newID) {
@@ -15,11 +16,13 @@ Player::Player(int newID) {
 		dice.push_back(d);
 		dice.at(i).setIndex(i);
 	}
+	money = 1000;
 	score = 0;
 }
 
 Player::Player(vector<Die>& newDie, int newId) : dice(newDie), playerID(newId) {
-	score = 0;
+	score = 1000;
+	money = 0;
 	for (int i = 0; i < dice.size(); i++) {
 		dice.at(i).setIndex(i);
 	}
@@ -52,4 +55,15 @@ void Player::resetDie() {
 	for (Die& d : dice) {
 		d.setCanRoll(true);
 	}
+}
+
+void Player::setMoney(int newMoney) {
+	money += newMoney;
+}
+
+int Player::getMoney() {
+	return money;
+}
+void Player::resetScore() {
+	score = 0;
 }

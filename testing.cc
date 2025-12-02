@@ -18,6 +18,8 @@ int main() {
 	presetDie special;
 	Table table;
 	int endScore = 0;
+	int wager = 0;
+	bool wonRound = true;
 
 	cout << "Welcome to Farkle!" << endl;
 
@@ -59,33 +61,73 @@ int main() {
 		}
 	}
 
-	cout << "How many points do you want to play to? (Input a number)" << endl;
-	cin >> endScore;
 
 	while (true) {
 		//TODO: game logic
+		if (wonRound) {
+			for (int i = 0; i < players.size(); i++) {
+				players.at(i).resetScore();
+				if (players.at(i).getMoney() <= 0) {
+					setcolor(255,165,0);
+					cout << "Player " << players.at(i).getID() << " went Bankrupt!! Player ";
+					if (i == players.size() - 1) {
+						cout << " 0 Wins!!!" << endl;
+					} else {
+						cout << players.at(i).getID() + 1 << " Wins!!!" << endl;
+					}
+					setcolor(255,255,255);
+					exit(EXIT_SUCCESS);
+				}	
+			}
+			cout << "How much would you like to wager? You Have $" << players.at(0).getMoney() << "  (Enter a number > 0 and < " << players.at(0).getMoney() << " )" << endl;
+			cin >> wager;
+			if (!cin) {
+				cout << "BAD INPUT. PROGRAM DIE NOW" << endl;
+				exit(EXIT_FAILURE);
+			}
+
+			while (wager < 0 || wager > players.at(0).getMoney()) {
+				cout << "Bad Input For Wager!!" << endl;
+				cout << "How much would you like to wager? You Have $" << players.at(0).getMoney() << "  (Enter a number > 0 and < " << players.at(0).getMoney() << " )" << endl;
+				cin >> ws;
+				cin >> wager;
+			}
+			cout << "How many points do you want to play to? (Input a number)" << endl;
+			cin >> endScore;
+			wonRound = false;
+		}
 		for (Player& p : players) {
+
+			if (wonRound) {
+				p.setMoney(-1 *wager);
+				break;
+			}
 			bool moveOn = false;
 			setcolor(220, 0, 255);
 			cout << "Player " << p.getID() << "'s Turn!" << endl;
 			setcolor(255,255,255);
 			while (!moveOn) {
+				setcolor(0,255,255);
+				cout << "Player " << p.getID() << "'s total points: " << p.getScore() << endl;
 				cout << "Player " << p.getID() << "'s points on the board: " << table.getScore() << endl;
-			//	cerr<< "in loop good" << endl;
+				setcolor(255,255,255);
+				//	cerr<< "in loop good" << endl;
 				table.rollAllDie(p);
-			//	cerr << "rolled die good" << endl;
+				//	cerr << "rolled die good" << endl;
 				if (table.isFarkle()) {
+					setcolor(255,0,0);
 					cout << "BUST!! YOU FARKLED" << endl;
+					setcolor(255,255,255);
 					moveOn = true;
 					table.cleanTable();
 					p.resetDie();
 					continue;
 				}
-			//	cerr << "farkle check good" << endl;
+				//	cerr << "farkle check good" << endl;
 				table.printResults();
-			//	cerr << "print good" << endl;
+				//	cerr << "print good" << endl;
 				table.keepDice(p);
-			
+
 
 				cout << "What will you do?" << endl;
 				cout << "1) Keep Playing" << endl;
@@ -104,19 +146,20 @@ int main() {
 					continue;
 				} else {
 					moveOn = true;
-					cout << "score before updating " << p.getScore() << " and the amount we want to add is " << table.getScore() << endl;
+					//					cout << "score before updating " << p.getScore() << " and the amount we want to add is " << table.getScore() << endl;
 					p.updateScore(table.getScore());
-					cout << "Player " << p.getID() << "'s score is now " << p.getScore() << endl;
+					//					cout << "Player " << p.getID() << "'s score is now " << p.getScore() << endl;
 					if (p.getScore() >= endScore) {
 						setcolor(255,165,0);
 						cout << "Player  " << p.getID() << " wins!!" << endl;
 						setcolor(255,255,255);
-						exit(EXIT_SUCCESS);
+						wonRound = true;
+						p.setMoney(wager);
+						//	exit(EXIT_SUCCESS);
 					}
 					p.resetDie();
 					table.cleanTable();
 				}
-
 			}
 
 		}
