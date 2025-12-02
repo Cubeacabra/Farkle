@@ -74,35 +74,58 @@ int main() {
 			while (dice.size() < 6) {
 				dice.push_back(Die());
 			}
-			cerr << "about to run init dice)" << endl;
+			//cerr << "about to run init dice)" << endl;
 			p.initDice(dice);
-			cerr << "ran  init dice)" << endl;
+			//cerr << "ran  init dice)" << endl;
 
 
 
 			//	}
 		} else if (first == "3") {
-			cout << "You chose option 3, how many sides on a die will you like to input? ";
-			int new_sides = 0;
-			cin >> new_sides;
-			cout << "You're new weights have to be added up to? push q to stop";
-			vector<double> new_weights;
+			//cout << "You chose option 3, how many sides on a die will you like to input? ";
+			cout << "How many sides do you want your die to be? (Enter a number > 0)" << endl;
+			int newSides = 0;
+			cin >> newSides;
+			if (!cin) {
+				cout << "BAD INPUT. PROGRAM DIE NOW" << endl;
+				exit(EXIT_FAILURE);
+			}
+			while (newSides < 0) {
+				cout << "Bad Input!" << endl;
+				cout << "How many sides do you want your die to be? (Enter a number > 0)" << endl;
+				cin >> newSides;
+			}
+			cout << "Enter the weight of each side, starting from side 1. weights must be btwn 0 and 1" << endl;
+			vector<double> newWeights;
 			double a = 0.00;
+			double sum = 0;
+			double nextSum = 0;
 			while (true) {
-
 				cin >> a; 
-				new_weights.push_back(a);
+				if (!cin) continue;
+				if (a < 0) continue;
+				if (a > 1) continue;
+				if (newWeights.size() == newSides) break;
+				nextSum = sum + a;
+				if (nextSum < 1) {
+					newWeights.push_back(a);
+					sum = nextSum;
+				} else {
+					newWeights.push_back(1 - sum);
+					break;
+				}
+				
+			}
+			while (newWeights.size() < newSides) {
+				newWeights.push_back(0.0);	
+			}
+			if (sum < 1) {
+				newWeights.at(newSides - 1) = 1 - sum - newWeights.at(newSides - 1);
 			}
 
-			vector<Die> dice;
+			vector<Die> dice(6, Die(newWeights, newSides, "Custom Die"));
 
-			//p.initDice(die(new_weights,new_sides));
-
-			//TODO: Prompt user for input, letting them input weights btwn 0 and 1. I would recomend prompting them first
-			//cout << "You choice 3, 
-			//      for how many values they will input (so how many sides are on the die) and then having them input their
-			//      prefered dice weights. Read these into a vector of doubles, then make sure all the weights in the vector add
-			//      up to between 0.99 and 1.01. Lastly, call initDice and pass in this vector for the player
+			p.initDice(dice);
 
 		} else {
 			cout << "Bad Input!!" << endl;
