@@ -98,10 +98,6 @@ int main() {
 		}
 		for (Player& p : players) {
 
-			if (wonRound) {
-				p.setMoney(-1 *wager);
-				break;
-			}
 			bool moveOn = false;
 			setcolor(220, 0, 255);
 			cout << "Player " << p.getID() << "'s Turn!" << endl;
@@ -154,17 +150,24 @@ int main() {
 						cout << "Player  " << p.getID() << " wins!!" << endl;
 						setcolor(255,255,255);
 						wonRound = true;
-						p.setMoney(wager);
-						//	exit(EXIT_SUCCESS);
-					}
-					p.resetDie();
-					table.cleanTable();
-				}
-			}
+						p.winMoney(wager);
+						if (p.getID() == 0) {
+							players.at(1).loseMoney(wager);
+						} else {
+							players.at(0).loseMoney(wager);
+						}
 
+					}
+					//	exit(EXIT_SUCCESS);
+				}
+				p.resetDie();
+				table.cleanTable();
+			}
 		}
 
 	}
 
 }
+
+
 

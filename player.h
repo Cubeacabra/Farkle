@@ -21,6 +21,7 @@ class Player {
 		void setBadDie(int index); //Makes the rollable bool false
 		void resetDie();
 		int getMoney();
-		void setMoney(int newMoney);
+		void winMoney(int newMoney);
+		void loseMoney(int lostMoney);
 		void resetScore();
 };

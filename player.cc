@@ -57,9 +57,13 @@ void Player::resetDie() {
 	}
 }
 
-void Player::setMoney(int newMoney) {
+void Player::winMoney(int newMoney) {
 	money += newMoney;
 }
+void Player::loseMoney(int lostMoney) {
+	money -= lostMoney;
+}
+
 
 int Player::getMoney() {
 	return money;
